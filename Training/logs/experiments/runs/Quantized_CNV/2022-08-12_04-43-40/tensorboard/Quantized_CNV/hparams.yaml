@@ -1,0 +1,78 @@
+model:
+  _target_: src.models.trainer_module.TrainerModule
+  lr: 0.001
+  weight_decay: 0
+  milestones: 350,500
+  gamma: 0.1
+  net:
+    _target_: src.models.components.vit_small.ViT
+    image_size: 32
+    patch_size: 4
+    num_classes: 10
+    dim: 512
+    depth: 4
+    heads: 2
+    mlp_dim: 256
+    SA_SIZE: 256
+    dropout: 0.1
+    emb_dropout: 0.1
+    quantization: true
+    quantizer_cfg:
+      weight_quantizer:
+        bit_width: 2
+        signed: true
+        narrow_range: false
+        quant_type: QuantType.INT
+        scaling_const: 1.0
+        scaling_per_output_channel: false
+        float_to_int_impl_type: FloatToIntImplType.ROUND
+        scaling_impl_type: ScalingImplType.STATS
+        scaling_stats_op: StatsOp.AVE
+        restrict_scaling_type: RestrictValueType.POWER_OF_TWO
+        bit_width_impl_type: BitWidthImplType.CONST
+      activation_quantizer:
+        bit_width: 8
+  epochs: 500
+model/params/total: 2271255
+model/params/trainable: 2271255
+model/params/non_trainable: 0
+datamodule:
+  _target_: src.datamodules.cifar10_datamodule.CIFAR10DataModule
+  data_dir: /home/zahidu/workspace/brevitas-template/Training/data/
+  batch_size: 512
+  train_val_test_split:
+  - 50000
+  - 10000
+  - 0
+  num_workers: 4
+  pin_memory: true
+trainer:
+  _target_: pytorch_lightning.Trainer
+  gpus:
+  - 0
+  min_epochs: 1
+  max_epochs: 500
+  resume_from_checkpoint: null
+seed: 12345
+callbacks:
+  model_checkpoint:
+    _target_: pytorch_lightning.callbacks.ModelCheckpoint
+    monitor: val/acc
+    mode: max
+    save_top_k: 1
+    save_last: true
+    verbose: false
+    dirpath: checkpoints/
+    filename: epoch_{epoch:03d}
+    auto_insert_metric_name: false
+  early_stopping:
+    _target_: pytorch_lightning.callbacks.EarlyStopping
+    monitor: val/acc
+    mode: max
+    patience: 100
+    min_delta: 0.001
+  model_summary:
+    _target_: pytorch_lightning.callbacks.RichModelSummary
+    max_depth: -1
+  rich_progress_bar:
+    _target_: pytorch_lightning.callbacks.RichProgressBar

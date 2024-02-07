@@ -1,0 +1,23 @@
+[2022-08-04 14:26:27,856][src.utils][INFO] - Disabling python warnings! <config.ignore_warnings=True>
+[2022-08-04 14:26:27,856][src.utils][INFO] - Printing config tree with Rich! <config.print_config=True>
+[2022-08-04 14:26:27,907][pytorch_lightning.utilities.seed][INFO] - Global seed set to 12345
+[2022-08-04 14:26:27,908][src.training_pipeline][INFO] - Instantiating datamodule <src.datamodules.cifar10_datamodule.CIFAR10DataModule>
+[2022-08-04 14:26:27,911][src.training_pipeline][INFO] - Instantiating model <src.models.trainer_module.TrainerModule>
+[2022-08-04 14:26:28,395][torch.distributed.nn.jit.instantiator][INFO] - Created a temporary directory at /tmp/tmpkjewxflu
+[2022-08-04 14:26:28,396][torch.distributed.nn.jit.instantiator][INFO] - Writing /tmp/tmpkjewxflu/_remote_module_non_sriptable.py
+[2022-08-04 14:26:28,553][src.training_pipeline][INFO] - Instantiating callback <pytorch_lightning.callbacks.ModelCheckpoint>
+[2022-08-04 14:26:28,554][src.training_pipeline][INFO] - Instantiating callback <pytorch_lightning.callbacks.EarlyStopping>
+[2022-08-04 14:26:28,555][src.training_pipeline][INFO] - Instantiating callback <pytorch_lightning.callbacks.RichModelSummary>
+[2022-08-04 14:26:28,555][src.training_pipeline][INFO] - Instantiating callback <pytorch_lightning.callbacks.RichProgressBar>
+[2022-08-04 14:26:28,555][src.training_pipeline][INFO] - Instantiating logger <pytorch_lightning.loggers.tensorboard.TensorBoardLogger>
+[2022-08-04 14:26:28,556][src.training_pipeline][INFO] - Instantiating trainer <pytorch_lightning.Trainer>
+[2022-08-04 14:26:28,560][pytorch_lightning.utilities.rank_zero][INFO] - Trainer already configured with model summary callbacks: [<class 'pytorch_lightning.callbacks.rich_model_summary.RichModelSummary'>]. Skipping setting a default `ModelSummary` callback.
+[2022-08-04 14:26:28,560][pytorch_lightning.utilities.rank_zero][INFO] - GPU available: True, used: True
+[2022-08-04 14:26:28,560][pytorch_lightning.utilities.rank_zero][INFO] - TPU available: False, using: 0 TPU cores
+[2022-08-04 14:26:28,560][pytorch_lightning.utilities.rank_zero][INFO] - IPU available: False, using: 0 IPUs
+[2022-08-04 14:26:28,560][pytorch_lightning.utilities.rank_zero][INFO] - HPU available: False, using: 0 HPUs
+[2022-08-04 14:26:28,560][src.training_pipeline][INFO] - Logging hyperparameters!
+[2022-08-04 14:26:28,573][src.training_pipeline][INFO] - Starting training!
+[2022-08-04 14:26:32,049][pytorch_lightning.accelerators.gpu][INFO] - LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+[2022-08-04 17:24:00,030][src.training_pipeline][INFO] - Finalizing!
+[2022-08-04 17:24:00,031][src.training_pipeline][INFO] - Best model ckpt at /home/zahidu/workspace/brevitas-template/Training/logs/experiments/runs/Quantized_CNV/2022-08-04_14-26-26/checkpoints/epoch_435.ckpt

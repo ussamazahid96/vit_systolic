@@ -1,0 +1,52 @@
+# @package _global_
+
+# to execute this experiment run:
+# python train.py experiment=example
+
+defaults:
+  - override /datamodule: cifar10.yaml
+  - override /model: cnv.yaml
+  - override /callbacks: default.yaml
+  - override /logger: null
+  - override /trainer: default.yaml
+  - override /quantizer: quant.yaml
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+# name of the run determines folder name in logs
+name: "Quantized_CNV"
+
+seed: 12345
+
+trainer:
+  min_epochs: 1
+  max_epochs: 500
+  # gradient_clip_val: 0.5
+
+model:
+  lr: 0.001
+  weight_decay: 0
+  milestones: 350,500
+  epochs: ${trainer.max_epochs}
+  net:
+    image_size: 32
+    patch_size: 4
+    num_classes: 10
+    dim: 512
+    depth: 4
+    heads: 6
+    mlp_dim: 256
+    SA_SIZE: 256
+    dropout: 0.1
+    emb_dropout: 0.1
+    quantization: True
+    quantizer_cfg: ${quantizer}
+
+
+datamodule:
+  batch_size: 512
+
+logger:
+  wandb:
+    tags: ["cifar10", "${name}"]

@@ -1,0 +1,5 @@
+- experiment=quantized
+- trainer.gpus=[0]
+- model=vit_tiny
+- model.net.heads=2
+- logger=tensorboard
